@@ -3,21 +3,50 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
-// 路由
+// 页面组件
+const home = r => require.ensure([], () => r(require('@/pages/home')), 'home');
+const hello = r => require.ensure([], () => r(require('@/components/HelloWorld')), 'hello');
 const register = r => require.ensure([], () => r(require('@/pages/register')), 'register');
 const login = r => require.ensure([], () => r(require('@/pages/login')), 'login');
-const home = r => require.ensure([], () => r(require('@/pages/home')), 'home');
-const myLike = r => require.ensure([], () => r(require('@/pages/my-like')), 'myLike');
 const about = r => require.ensure([], () => r(require('@/pages/about')), 'about');
+const myLike = r => require.ensure([], () => r(require('@/pages/my-like')), 'myLike');
+const myBookshelf = r => require.ensure([], () => r(require('@/pages/my-bookshelf')), 'myBookshelf');
 const booklist = r => require.ensure([], () => r(require('@/pages/book-list')), 'booklist');
+const bookDetails = r => require.ensure([], () => r(require('@/pages/book-details')), 'bookDetails');
+const bookRead = r => require.ensure([], () => r(require('@/pages/book-read')), 'bookRead');
+
+// 精品页
+const homeIndex = r => require.ensure([], () => r(require('@/pages/home/index')), 'homeIndex');
 
 
-// 动态路由主页
+// 路由配置
 const routes = [
+	{
+		path: '/hello',
+		name: 'HelloWorld',
+		component: hello
+	},
 	{
 		path: '/home',
 		name: '主页',
-		component: home
+		component: home,
+		children:[
+			{
+				path: '/home/index',
+				name: '精品页',
+				component: homeIndex
+			},
+			{
+				path: '/home/my-like',
+				name: '我喜欢',
+				component: myLike
+			},
+			{
+				path: '/home/my-bookshelf',
+				name: '我的书架',
+				component: myBookshelf
+			}
+		]
 	},
 	{
 		path: '/register',
@@ -30,19 +59,24 @@ const routes = [
 		component: login
 	},
 	{
-		path: '/my-like',
-		name: '我喜欢',
-		component: myLike
-	},
-	{
 		path: '/about',
 		name: '关于',
 		component: about
 	},
 	{
-		path: '/booklist',
+		path: '/booklist/:id',
 		name: '书单',
 		component: booklist
+	},
+	{
+		path: '/book-details/:bookId',
+		name: '图书详情',
+		component: bookDetails
+	},
+	{
+		path: '/book-read',
+		name: '阅读',
+		component: bookRead
 	}
 ]
 

@@ -1,7 +1,7 @@
 import axios from 'axios'
 import router from '../router'
 import db from '../utils/sessionStorage'
-import * as config from '../utils/config'
+import * as common from './common'
 
 axios.interceptors.response.use(success => {
     if (success.status && success.status == 200 && success.data.status == 500) {
@@ -28,7 +28,7 @@ axios.interceptors.response.use(success => {
     return;
 })
 
-let base = config.baseApi;
+let base = common.baseApi;
 
 export const postKeyValueRequest = (url, params) => {
     return axios({
@@ -47,11 +47,12 @@ export const postKeyValueRequest = (url, params) => {
         }
     });
 }
-export const postRequest = (url, params) => {
+export const postRequest = (url, params, headers) => {
     return axios({
         method: 'post',
         url: `${base}${url}`,
-        data: params
+        data: params,
+        headers: headers
     })
 }
 export const putRequest = (url, params) => {
