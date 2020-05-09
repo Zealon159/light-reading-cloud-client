@@ -74,7 +74,7 @@ const routes = [
 		component: bookDetails
 	},
 	{
-		path: '/book-read',
+		path: '/book-read/:bookId',
 		name: '阅读',
 		component: bookRead
 	}

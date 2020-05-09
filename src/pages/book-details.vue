@@ -114,8 +114,8 @@
                         <v-card-text>您还没有登录，还不能加入书架哦，是否跳转到登录页面？</v-card-text>
                         <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn color="white darken-1"  @click="dialog = false">取消</v-btn>
-                        <v-btn color="blue darken-1"  @click="gotoLogin()">确定</v-btn>
+                        <v-btn color="white darken-1"  @click="dialog = false">算了</v-btn>
+                        <v-btn color="blue darken-1"  @click="gotoLogin()">嗯，去登录</v-btn>
                         </v-card-actions>
                     </v-card>
                 </v-dialog>
@@ -130,13 +130,13 @@
                 color="primary" absolute
                 horizontal grow
             >
-                <v-btn>
+                <v-btn @click="gotoReading()">
                     <span>开始阅读</span>
                     <v-icon>mdi-read</v-icon>
                 </v-btn>
                 <v-btn @click="addBookshelf()" :disabled="bookshelfStatus">
-                    <span>加入书架</span>
-                    <v-icon>mdi-plus</v-icon>
+                    <span>{{bookshelfText}}</span>
+                    <v-icon>{{bookshelfIcon}}</v-icon>
                 </v-btn>
                 <v-btn>
                     <span>喜欢</span>
@@ -156,6 +156,8 @@
                 dialog: false,
                 snackbar: false,
                 bookshelfStatus:false,
+                bookshelfText:'加入书架',
+                bookshelfIcon:'mdi-plus',
                 loading: false,
                 chapters:[],
                 book: {}
@@ -167,8 +169,11 @@
         methods: {
             gotoLogin(){
                 this.$router.push("/login");
-            },gotoBookRead(id){
-                this.$router.push("/book/book-read/"+id);
+            },
+            // 开始阅读
+            gotoReading(){
+                let bookId = this.$route.params.bookId;
+                this.$router.push("/book-read/" + bookId);
             },
             gotoAuthorDetails(id){
                 this.$router.push("/book/author-details/"+id);
@@ -181,12 +186,16 @@
                         this.book = resp.data;
                     }
                 })
+
+                // 检查是否在书架 todo
+
+                // 检查是否喜欢
+
             },
             // 加入书架
             addBookshelf(){
                 let token = this.db.get("TOKEN")
                 if(!token){
-                    //alert("请先登录哦");
                     this.dialog = true;
                     return false;
                 }
@@ -204,6 +213,7 @@
                     if (resp && resp.code==200) {
                         this.snackbar = true;
                         this.bookshelfStatus = true;
+                        this.bookshelfText = '已在书架';
                     }
                 })
             }
