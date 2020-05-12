@@ -2,15 +2,8 @@
   <div id="app">
     <router-view></router-view>
     <!-- 底部工具栏 -->
-    <v-footer
-      app
-      no-gutters
-    >
-      <v-bottom-navigation
-        absolute
-        height="60"
-        grow
-      >
+    <v-footer app no-gutters >
+      <v-bottom-navigation absolute height="60" grow >
         <v-btn text @click="commandHandler('home')" >
           <span>主页</span>
           <v-icon>mdi-home</v-icon>
@@ -43,7 +36,7 @@
               this.$router.replace("/login");
           }
         } else if (cmd == 'home'){
-            this.$router.push("/home/index/selected");
+            this.$router.push("/home/index");
         } else if (cmd == 'bookshelf'){
             this.$router.push("/home/my-bookshelf");
         } else if (cmd == 'like'){

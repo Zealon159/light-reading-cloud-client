@@ -34,6 +34,9 @@
                     <v-list-item>
                         <v-list-item-title>分享</v-list-item-title>
                     </v-list-item>
+                    <v-list-item @click="gotoBookshelf()">
+                        <v-list-item-title>进入书架</v-list-item-title>
+                    </v-list-item>
                     <v-list-item>
                         <v-list-item-title>复制链接</v-list-item-title>
                     </v-list-item>
@@ -153,6 +156,7 @@
     export default {
         data() {
             return {
+                token: this.db.get("TOKEN"),
                 dialog: false,
                 snackbar: false,
                 bookshelfStatus:false,
@@ -167,13 +171,16 @@
             this.initData();
         },
         methods: {
+            gotoBookshelf(){
+                this.$router.push("/home/my-bookshelf");
+            },
             gotoLogin(){
                 this.$router.push("/login");
             },
             // 开始阅读
             gotoReading(){
                 let bookId = this.$route.params.bookId;
-                this.$router.push("/book-read/" + bookId);
+                this.$router.push("/book-read/" + bookId + "/0/0");
             },
             gotoAuthorDetails(id){
                 this.$router.push("/book/author-details/"+id);
@@ -187,15 +194,26 @@
                     }
                 })
 
-                // 检查是否在书架 todo
+                let headers = {
+                    "token":this.token
+                }
+                
+                if(this.token){
+                    // 检查是否在书架
+                    this.getRequest('/account/bookshelf/exist-book', {bookId:bookId}, headers).then(resp => {
+                        if (resp.code == 200 && resp.data == 1) {
+                            this.bookshelfStatus = true;
+                            this.bookshelfText = '已在书架';
+                            this.bookshelfIcon = '';
+                        }
+                    })
 
-                // 检查是否喜欢
-
+                    // 检查是否喜欢 todo
+                }
             },
             // 加入书架
             addBookshelf(){
-                let token = this.db.get("TOKEN")
-                if(!token){
+                if(!this.token){
                     this.dialog = true;
                     return false;
                 }
@@ -203,17 +221,17 @@
                 let dataForm = {
                     syncType:1,
                     bookId:bookId,
-                    token:token,
                     lastChapterId:'0'
                 }
                 let headers = {
-                    "token":token
+                    "token":this.token
                 }
                 this.postRequest('/account/bookshelf/sync-book', dataForm, headers).then(resp => {
                     if (resp && resp.code==200) {
                         this.snackbar = true;
                         this.bookshelfStatus = true;
                         this.bookshelfText = '已在书架';
+                        this.bookshelfIcon = '';
                     }
                 })
             }

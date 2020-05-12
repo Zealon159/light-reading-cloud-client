@@ -1,13 +1,7 @@
 <template>
     <v-app cols="12" sm="12" align="center" offset-sm="3">
-        <v-app-bar
-            app
-            color="#43a047"
-            dark 
-            cols="12" 
+        <v-app-bar app color="#43a047" dark dense cols="12" elevation="24"
             src="http://q94iswz37.bkt.clouddn.com/app-bg-02.jpg"
-            elevation="24"
-            dense
         >
             <template v-slot:img="{ props }" >
                 <v-img v-bind="props" gradient="to top right, rgba(19,84,122,.5), rgba(128,208,199,.8)"></v-img>
@@ -64,7 +58,22 @@
                         </v-card-actions>
                     </v-card>
                 </v-dialog>
+                
             </div>
+            <!-- 目录 -->
+            <v-bottom-sheet id="bs" scrollable v-model="sheetCatalog" content-class="content-class">
+                <v-card>
+                    <v-card-title>目录</v-card-title>
+                    <v-divider></v-divider>
+                    <v-card-text style="height: 70%;">
+                        <v-list-item v-for="chapter in chapters" :key="chapter.id" style="text-align:left"
+                        @click="gotoCustomerChapter(chapter.id)"
+                        >
+                            <v-list-item-title>{{ chapter.name }}</v-list-item-title>
+                        </v-list-item>
+                    </v-card-text>
+                </v-card>
+            </v-bottom-sheet>
         </v-content>
 
         <v-footer app no-gutters >
@@ -73,9 +82,9 @@
                     上一章
                     <v-icon>mdi-skip-previous</v-icon>
                 </v-btn>
-                <v-btn @click="addBookshelf()">
+                <v-btn @click="getCatalog()">
                     目录
-                    <v-icon>mdi-dialpad</v-icon>
+                    <v-icon>mdi-view-headline</v-icon>
                 </v-btn>
                 <v-btn @click="gotoNext()">
                     下一章
@@ -92,10 +101,13 @@
     export default {
         data() {
             return {
+                token: this.db.get("TOKEN"),
+                inShelf: 0,
                 bookId:'',
                 tipText: '',
                 dialog: false,
                 snackbar: false,
+                sheetCatalog: false,
                 pre: {},
                 current: {},
                 next: {},
@@ -107,13 +119,12 @@
             this.initData();
         },
         methods: {
-            gotoAuthorDetails(id){
-                this.$router.push("/book/author-details/"+id);
-            },
+            // 详情
             initData(){
-                // 详情
                 this.bookId = this.$route.params.bookId;
-                this.getChapterInfo(this.bookId, 0)
+                let chapterId = this.$route.params.chapterId;
+                this.inShelf = this.$route.params.inShelf;
+                this.getChapterInfo(this.bookId, chapterId)
             },
             // 上一章
             gotoPre(){
@@ -123,6 +134,7 @@
                     return;
                 }
                 this.getChapterInfo(this.bookId, this.pre.id)
+                this.syncBook(this.bookId, this.pre.id)
             },
             // 下一章
             gotoNext(){
@@ -132,6 +144,12 @@
                     return;
                 }
                 this.getChapterInfo(this.bookId, this.next.id)
+                this.syncBook(this.bookId, this.next.id)
+            },
+            // 跳转到指定章节
+            gotoCustomerChapter(chapterId){
+                this.getChapterInfo(this.bookId, chapterId)
+                this.sheetCatalog = false
             },
             // 获得章节信息
             getChapterInfo:function(bookId, chapterId){
@@ -142,7 +160,37 @@
                         this.next = resp.data.next;
                     }
                 })
+            },
+            // 获取章节目录
+            getCatalog(){
+                this.getRequest('/book/chapter/getChapterList', {bookId:this.bookId}).then(resp => {
+                    if (resp.code == 200) {
+                        this.sheetCatalog = true;
+                        this.chapters = resp.data;
+                    }
+                })
+            },
+            // 同步图书阅读进度
+            syncBook(bookId, chapterId){
+                // 只同步在书架里的图书
+                if(this.token && this.inShelf == "1"){
+                    let dataForm = {
+                        syncType: 2,
+                        bookId: bookId,
+                        lastChapterId: chapterId
+                    }
+                    let headers = {
+                        "token": this.token
+                    }
+                    this.postRequest('/account/bookshelf/sync-book', dataForm, headers)
+                }
             }
         }
     }
 </script>
+
+<style scoped>
+    .content-class{
+        overflow: scroll;
+    }
+</style>

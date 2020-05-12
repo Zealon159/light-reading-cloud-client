@@ -62,14 +62,15 @@ export const putRequest = (url, params) => {
         data: params
     })
 }
-export const getRequest = (url, params) => {
+export const getRequest = (url, params, headers) => {
     let apiUrl = `${base}${url}`;
     apiUrl = getApiUrl(apiUrl,params);
     // 请求
     return axios({
         method: 'get',
         url: apiUrl,
-        data: params
+        data: params,
+        headers: headers
     })
 }
 export const deleteRequest = (url, params) => {
@@ -87,16 +88,14 @@ function getApiUrl(url,params){
     let apiUrl = url;
     let i = 0;
     for (const key in params) {
-        //if (params(key)) {
-            const value = params[key];
-            const param = key+"="+value;
-            let s = '?';
-            if ( i > 0 ){
-                s = '&';
-            }
-            apiUrl = apiUrl+s+param;
-            i++;
-        //}
+        const value = params[key];
+        const param = key+"="+value;
+        let s = '?';
+        if ( i > 0 ){
+            s = '&';
+        }
+        apiUrl = apiUrl+s+param;
+        i++;
     }
     return apiUrl;
 }

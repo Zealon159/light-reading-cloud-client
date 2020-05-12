@@ -2,6 +2,7 @@
   <v-app cols="12" align="center" >
     <v-app-bar
         app
+        dark
         color="#43a047"
         cols="12" 
         src="http://q94iswz37.bkt.clouddn.com/app-bg-02.jpg"

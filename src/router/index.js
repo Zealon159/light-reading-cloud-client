@@ -74,7 +74,7 @@ const routes = [
 		component: bookDetails
 	},
 	{
-		path: '/book-read/:bookId',
+		path: '/book-read/:bookId/:chapterId/:inShelf',
 		name: '阅读',
 		component: bookRead
 	}
