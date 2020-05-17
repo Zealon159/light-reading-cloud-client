@@ -8,7 +8,7 @@
                 <v-img
                     height="112"
                     width="78"
-                    src="http://q94iswz37.bkt.clouddn.com/165314.jpg"
+                    :src="item.booklist.books[0].imgUrl"
                 ></v-img>
             </v-col>
         </v-row>

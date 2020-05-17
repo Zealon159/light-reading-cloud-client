@@ -55,7 +55,7 @@
                         <v-img
                             height="252"
                             width="180"
-                            src="https://images-pro.cread.com/211/images/60466920.jpg"
+                            :src="book.imgUrl"
                         ></v-img>
                     </v-col>
                     <v-col cols="6" sm="6" no-gutters >
@@ -101,13 +101,13 @@
                 <v-snackbar
                     v-model="snackbar"
                     :timeout="2000"
-                    >已加入书架
+                    >{{snackbarText}}
                     <v-btn
                         color="blue"
                         text
                         @click="snackbar = false"
                     >
-                        Close
+                        关闭
                     </v-btn>
                 </v-snackbar>
                 <!-- 未登录操作提示 -->
@@ -139,11 +139,11 @@
                 </v-btn>
                 <v-btn @click="addBookshelf()" :disabled="bookshelfStatus">
                     <span>{{bookshelfText}}</span>
-                    <v-icon>{{bookshelfIcon}}</v-icon>
+                    <v-icon :color="bookshelfColor">mdi-plus</v-icon>
                 </v-btn>
-                <v-btn>
-                    <span>喜欢</span>
-                    <v-icon>mdi-heart</v-icon>
+                <v-btn @click="likeSeeClick()">
+                    <span>{{likeText}}</span>
+                    <v-icon :color="likeColor">mdi-heart</v-icon>
                 </v-btn>
             </v-bottom-navigation>
         </v-footer>
@@ -159,9 +159,11 @@
                 token: this.db.get("TOKEN"),
                 dialog: false,
                 snackbar: false,
-                bookshelfStatus:false,
+                snackbarText: '已加入书架',
                 bookshelfText:'加入书架',
-                bookshelfIcon:'mdi-plus',
+                bookshelfColor:'',
+                likeText: '喜欢',
+                likeColor: '',
                 loading: false,
                 chapters:[],
                 book: {}
@@ -182,9 +184,6 @@
                 let bookId = this.$route.params.bookId;
                 this.$router.push("/book-read/" + bookId + "/0/0");
             },
-            gotoAuthorDetails(id){
-                this.$router.push("/book/author-details/"+id);
-            },
             initData(){
                 // 详情
                 let bookId = this.$route.params.bookId;
@@ -202,19 +201,27 @@
                     // 检查是否在书架
                     this.getRequest('/account/bookshelf/exist-book', {bookId:bookId}, headers).then(resp => {
                         if (resp.code == 200 && resp.data == 1) {
-                            this.bookshelfStatus = true;
                             this.bookshelfText = '已在书架';
-                            this.bookshelfIcon = '';
+                            this.bookshelfColor = 'green';
                         }
                     })
 
-                    // 检查是否喜欢 todo
+                    // 检查是否喜欢
+                    this.getRequest('/account/like-see/exist-book', {bookId:bookId}, headers).then(resp => {
+                        if (resp.code == 200 && resp.data == 1) {
+                            this.likeColor = "red"
+                            this.likeText = "已喜欢"
+                        }
+                    })
                 }
             },
             // 加入书架
             addBookshelf(){
                 if(!this.token){
                     this.dialog = true;
+                    return false;
+                }
+                if(this.bookshelfColor == "green"){
                     return false;
                 }
                 let bookId = this.$route.params.bookId;
@@ -229,9 +236,41 @@
                 this.postRequest('/account/bookshelf/sync-book', dataForm, headers).then(resp => {
                     if (resp && resp.code==200) {
                         this.snackbar = true;
-                        this.bookshelfStatus = true;
                         this.bookshelfText = '已在书架';
-                        this.bookshelfIcon = '';
+                        this.bookshelfColor = 'green';
+                    }
+                })
+            },
+            // 喜欢看/取消喜欢
+            likeSeeClick(){
+                if(!this.token){
+                    this.dialog = true;
+                    return false;
+                }
+                let value = 1;
+                let color = 'red'
+                let text = '已喜欢'
+                let msg = '加入了已喜欢'
+                if(this.likeColor=="red"){
+                    color = ''
+                    value = 0;
+                    text = '喜欢'
+                    msg = '取消了已喜欢'
+                }
+                let bookId = this.$route.params.bookId;
+                let dataForm = {
+                    bookId: bookId,
+                    value: value
+                }
+                let headers = {
+                    "token":this.token
+                }
+                this.postRequest('/account/like-see/click', dataForm, headers).then(resp => {
+                    if (resp && resp.code==200) {
+                        this.likeColor = color
+                        this.likeText = text
+                        this.snackbar = true
+                        this.snackbarText = msg
                     }
                 })
             }

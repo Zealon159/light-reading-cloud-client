@@ -23,7 +23,7 @@
                 <v-img
                     height="112"
                     width="78"
-                    src="http://q94iswz37.bkt.clouddn.com/165314.jpg"
+                    :src="book.imgUrl"
                 ></v-img>
                 </v-col>
                 <v-col

@@ -34,7 +34,7 @@
             <v-container fluid >
                 <v-row>
                     <v-col cols="12" sm="12">
-                        <div class="font-weight-light" style="font-size:18px;line-height:34px">{{current.content}}</div>
+                        <div class="font-weight-light" style="font-size:18px;line-height:34px;white-space: pre-line;">{{current.content}}</div>
                     </v-col>
                 </v-row>
             </v-container>

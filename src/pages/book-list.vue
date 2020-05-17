@@ -30,7 +30,7 @@
                 <v-img
                     height="125"
                     width="88"
-                    src="http://q94iswz37.bkt.clouddn.com/165314.jpg"
+                    :src="book.imgUrl"
                 ></v-img>
                 </v-col>
                 <v-col style=" text-align:left" cols="7" sm="7" >

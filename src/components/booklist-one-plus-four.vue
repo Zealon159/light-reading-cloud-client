@@ -21,7 +21,7 @@
                     <v-img
                         height="112"
                         width="78"
-                        src="http://q94iswz37.bkt.clouddn.com/165314.jpg"
+                        :src="booklist.books[0].imgUrl"
                     ></v-img>
                 </v-col>
                 <v-col cols="9" sm="9" >
@@ -32,7 +32,7 @@
                         <v-spacer></v-spacer>
                         <v-btn text color="grey" small >
                             <v-icon small color="red lighten-1">mdi-heart</v-icon>
-                            102人喜欢
+                            {{booklist.books[0].likeCount}}人喜欢
                         </v-btn>
                     </v-row>
                 </v-col>
@@ -43,14 +43,14 @@
                         <v-img
                             height="112"
                             width="78"
-                            src="http://q94iswz37.bkt.clouddn.com/165314.jpg"
+                            :src="booklist.books[n].imgUrl"
                         ></v-img>
                         <div>
                             <a style="font-size:13px">{{booklist.books[n].bookName|titleSubString}}</a>
                         </div>
                         <v-btn text color="grey" x-small >
                             <v-icon x-small color="red lighten-1">mdi-heart</v-icon>
-                            49人喜欢
+                             {{booklist.books[n].likeCount}}人喜欢
                         </v-btn>
                     </span>
                 </v-col>
