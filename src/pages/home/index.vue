@@ -132,8 +132,6 @@
     },
     created() {
       document.title = "轻松阅读"
-      console.log("created.")
-      //this.db.get("USER")
     },
     methods:{
       commandHandler(cmd) {

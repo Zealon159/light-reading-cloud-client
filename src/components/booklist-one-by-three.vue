@@ -20,15 +20,9 @@
             style="margin-top:15px">
             <v-row no-gutters @click="handleDetails(book.bookId)">
                 <v-col cols="3" sm="3">
-                <v-img
-                    height="112"
-                    width="78"
-                    :src="book.imgUrl"
-                ></v-img>
+                    <v-img height="112" width="78" :src="book.imgUrl" ></v-img>
                 </v-col>
-                <v-col
-                cols="9" sm="9"
-                >
+                <v-col cols="9" sm="9" >
                 <v-row><a>{{book.bookName}}</a></v-row>
                 <v-row style="font-size:13px;color:#cccccc; margin-top:6px" >{{book.introduction|subString}}</v-row>
                 <v-row style=" margin-top:6px">

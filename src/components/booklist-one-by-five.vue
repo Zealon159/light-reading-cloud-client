@@ -2,44 +2,52 @@
     <div>
         <v-row style="padding-left:10px;">
             <h3>{{booklist.name}}</h3>
+            <v-spacer></v-spacer>
+            <v-btn v-if="booklist.moreType==2" text color="primary" 
+                @click="handleMore(booklist.id)">
+                更多
+                <v-icon>mdi-chevron-right</v-icon>
+            </v-btn>
+            <v-btn v-else-if="booklist.moreType==3" text color="primary"
+                @click="handleExchange(booklist.id,booklist.randomNumber)">
+                换一换
+                <v-icon>mdi-cached</v-icon>
+            </v-btn>
         </v-row>
-        <v-row no-gutters style="margin-top:15px">
-            <v-col cols="4" sm="4">
+        
+        <div v-for="book in booklist.books" 
+            :key="book.bookId" 
+            style="margin-top:15px">
+            <v-row no-gutters @click="handleDetails(book.bookId)">
+                <v-col cols="3" sm="3">
                 <v-img
-                    height="140"
-                    width="102"
-                    :src="booklist.books[0].imgUrl"
+                    height="112"
+                    width="78"
+                    :src="book.imgUrl"
                 ></v-img>
-            </v-col>
-            <v-col cols="8" sm="8">
-                <v-row >
-                    <a>{{booklist.books[0].bookName}}</a>
+                </v-col>
+                <v-col
+                cols="9" sm="9"
+                >
+                <v-row><a>{{book.bookName}}</a></v-row>
+                <v-row style="font-size:13px;color:#cccccc; margin-top:6px" >{{book.introduction|subString}}</v-row>
+                <v-row style=" margin-top:6px">
+                    <span style="font-size:14px;" >{{book.authorName}} </span>
                     <v-spacer></v-spacer>
-                    <v-rating
-                        length=5
-                        v-model="booklist.books[0].bookScore"
-                        color="amber"
-                        dense
-                        half-increments
-                        readonly
-                        size=14
-                    ></v-rating>
-                    <div class="red--text ml-2" style="margin-right:10px">{{booklist.books[0].bookScore}}分</div>
+                    <v-chip class="ma-2" color="green" label small outlined>
+                        {{book.categoryName}}
+                    </v-chip>
                 </v-row>
-                <v-row>
-                    <v-btn text style="margin:0px; padding:0px" >
-                        <v-icon left>mdi-account-outline</v-icon>
-                        {{booklist.books[0].authorName}}
-                    </v-btn>
-                </v-row>
-                <v-row style="font-size:13px;color:#cccccc; margin-top:6px" >{{booklist.books[0].introduction|subString}}</v-row>
-            </v-col>
-        </v-row>
+                </v-col>
+            </v-row>
+            <v-divider style="margin-top:12px"></v-divider>
+        </div>
     </div>
 </template>
 
 <script>
     export default {
+        // 传入子组件的参数写到props
         props: {
             booklist: {}
         },
@@ -79,8 +87,8 @@
                 if(value == null){
                     return "";
                 }
-                if(value.length > 82){
-                    return value.substr(0,82)+"...";
+                if(value.length > 62){
+                    return value.substr(0,62)+"...";
                 }else{
                     return value;
                 }
