@@ -5,7 +5,7 @@
       color="#43a047"
       dark 
       cols="12" 
-      src="http://q94iswz37.bkt.clouddn.com/app-bg-02.jpg"
+      src="http://reading.zealon.cn/app-bg-02.jpg"
       elevation="24"
     >
       <template v-slot:img="{ props }" >
@@ -99,7 +99,7 @@
                   if (resp.code == 200) {
                     this.db.save("USER", resp.data.user);
                     this.db.save("TOKEN", resp.data.token);
-                    this.$router.replace('/home/index');
+                    this.$router.replace('/index');
                   }else{
                     alert(resp.msg);
                   }

@@ -3,7 +3,7 @@
         <v-row style="padding-left:10px;">
             <h3>{{booklist.name}}</h3>
         </v-row>
-        <v-row no-gutters style="margin-top:15px">
+        <v-row no-gutters style="margin-top:15px" @click="handleDetails(booklist.books[0].bookId)">
             <v-col cols="4" sm="4">
                 <v-img
                     height="140"

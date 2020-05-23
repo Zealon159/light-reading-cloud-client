@@ -55,19 +55,19 @@
             this.$router.replace("/login");
           }
         } else if (cmd == 'home'){
-            this.$router.push("/home/index");
+            this.$router.push("/index");
         } else if (cmd == 'bookshelf'){
           if(!this.token){
             this.dialog = true;
             return false;
           }
-          this.$router.push("/home/my-bookshelf");
+          this.$router.push("/my-bookshelf");
         } else if (cmd == 'like'){
           if(!this.token){
             this.dialog = true;
             return false;
           }
-          this.$router.push("/home/my-like");
+          this.$router.push("/my-like");
         } else if (cmd == 'login'){
           this.$router.push("/login"); 
         }

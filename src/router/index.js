@@ -27,22 +27,22 @@ const routes = [
 		component: hello
 	},
 	{
-		path: '/home',
+		path: '/',
 		name: '主页',
 		component: home,
 		children:[
 			{
-				path: '/home/index',
+				path: '/index',
 				name: '精品页',
 				component: homeIndex
 			},
 			{
-				path: '/home/my-like',
+				path: '/my-like',
 				name: '我喜欢',
 				component: myLike
 			},
 			{
-				path: '/home/my-bookshelf',
+				path: '/my-bookshelf',
 				name: '我的书架',
 				component: myBookshelf
 			}

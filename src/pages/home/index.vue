@@ -5,7 +5,7 @@
       color="#43a047"
       dark 
       cols="12" 
-      src="http://q94iswz37.bkt.clouddn.com/app-bg-02.jpg"
+      src="http://reading.zealon.cn/app-bg-02.jpg"
       elevation="24"
       dense
     >
@@ -68,31 +68,40 @@
 
       <v-divider></v-divider>
 
-      <v-list dense rounded>
+      <v-list dense rounded  @click="commandHandler('home')">
         <v-list-item link>
           <v-list-item-action>
             <v-icon>mdi-home</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title @click="commandHandler('home')">首页</v-list-item-title>
+            <v-list-item-title>主页</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
 
-        <v-list-item link>
+        <v-list-item link @click="commandHandler('my')">
           <v-list-item-action>
             <v-icon>mdi-account</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title @click="commandHandler('my')">我的</v-list-item-title>
+            <v-list-item-title >我的</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
 
-        <v-list-item link>
+        <v-list-item link  @click="commandHandler('about')">
           <v-list-item-action>
             <v-icon>mdi-help-box</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title @click="commandHandler('about')">关于</v-list-item-title>
+            <v-list-item-title>关于</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+
+        <v-list-item link @click="commandHandler('about')">
+          <v-list-item-action>
+            <v-icon>mdi-github</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>源码</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -142,10 +151,12 @@
               this.db.remove("TOKEN")
               this.$router.replace("/login");
           }
+        } else if (cmd == 'home'){
+            this.$router.push("/index");
         } else if (cmd == 'bookshelf'){
-            this.$router.push("/home/my-bookshelf");
+            this.$router.push("/my-bookshelf");
         } else if (cmd == 'like'){
-            this.$router.push("/home/my-like");
+            this.$router.push("/my-like");
         } else if (cmd == 'about'){
             this.$router.push("/about");
         } else if (cmd == 'login'){

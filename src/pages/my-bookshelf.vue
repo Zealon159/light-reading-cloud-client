@@ -5,7 +5,7 @@
         dark
         color="#43a047"
         cols="12" 
-        src="http://q94iswz37.bkt.clouddn.com/app-bg-02.jpg"
+        src="http://reading.zealon.cn/app-bg-02.jpg"
         elevation="24"
         dense
     >
@@ -31,7 +31,7 @@
                     <v-img
                         height="125"
                         width="88"
-                        src="http://q94iswz37.bkt.clouddn.com/165314.jpg"
+                        :src="book.imgUrl"
                     ></v-img>
                     <a>{{book.bookName}}</a>
                 </v-col>
