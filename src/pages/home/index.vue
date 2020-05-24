@@ -51,7 +51,7 @@
           </v-list-item-avatar>
 
           <v-list-item-content>
-            <v-list-item-title>{{user.name}}</v-list-item-title>
+            <v-list-item-title>{{user.nickName}}</v-list-item-title>
             <v-list-item-subtitle @click="commandHandler('logout')">注销</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
@@ -68,8 +68,8 @@
 
       <v-divider></v-divider>
 
-      <v-list dense rounded  @click="commandHandler('home')">
-        <v-list-item link>
+      <v-list dense rounded >
+        <v-list-item link @click="commandHandler('home')">
           <v-list-item-action>
             <v-icon>mdi-home</v-icon>
           </v-list-item-action>
@@ -96,7 +96,7 @@
           </v-list-item-content>
         </v-list-item>
 
-        <v-list-item link @click="commandHandler('about')">
+        <v-list-item link @click="commandHandler('code')">
           <v-list-item-action>
             <v-icon>mdi-github</v-icon>
           </v-list-item-action>
@@ -105,6 +105,13 @@
           </v-list-item-content>
         </v-list-item>
       </v-list>
+
+      <v-snackbar
+        v-model="snackbar"
+        :timeout="2000"
+      >
+        暂未实现哦...
+      </v-snackbar>
     </v-navigation-drawer>
   </v-app>
 </template>
@@ -129,6 +136,7 @@
     },
     data() {
       return {
+        snackbar: false,
         drawer: null,
         currentTab:"selected",
         user: this.db.get("USER")
@@ -152,13 +160,17 @@
               this.$router.replace("/login");
           }
         } else if (cmd == 'home'){
-            this.$router.push("/index");
+          this.drawer = false
+        } else if (cmd == 'my'){
+            this.snackbar = true;
         } else if (cmd == 'bookshelf'){
             this.$router.push("/my-bookshelf");
         } else if (cmd == 'like'){
             this.$router.push("/my-like");
         } else if (cmd == 'about'){
             this.$router.push("/about");
+        } else if (cmd == 'code'){
+            window.open('https://github.com/Zealon159/light-reading-cloud')
         } else if (cmd == 'login'){
             this.$router.push("/login");
         } else if (cmd == 'register'){

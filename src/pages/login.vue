@@ -14,7 +14,7 @@
           gradient="to top right, rgba(19,84,122,.5), rgba(128,208,199,.8)"
         ></v-img>
       </template>
-      <v-btn icon @click="$router.back(-1)">
+      <v-btn icon @click="$router.push('/index')">
         <v-icon>mdi-arrow-left</v-icon>
       </v-btn>
       <v-toolbar-title>系统登录</v-toolbar-title>
@@ -45,6 +45,7 @@
                 v-model="password"
                 :rules="passwordRules"
                 label="密码"
+                type="password"
                 required
               ></v-text-field>
 
@@ -60,10 +61,11 @@
               <v-btn
                 color="light"
                 class="mr-4"
-                @click="$router.back(-1)"
+                @click="$router.push('register')"
               >
-                取消
+                点击注册账户
               </v-btn>
+
             </v-form>
           </v-col>
         </v-row>

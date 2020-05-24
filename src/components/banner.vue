@@ -9,6 +9,7 @@
     <v-carousel-item
       v-for="(banner, i) in items"
       :key="i"
+      @click="handleDetails(banner.url)"
     >
       <v-sheet
         height="100%"
@@ -33,6 +34,12 @@
     // 传入子组件的参数写到props
     props: {
       items: {}
+    },
+    methods: {
+        // 图书详情
+        handleDetails(bookId) {
+            this.$router.push('/book-details/'+bookId);
+        }
     }
   }
 </script>

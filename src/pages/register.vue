@@ -52,6 +52,7 @@
               <v-text-field
                 v-model="userPwd"
                 :rules="userPwdRules"
+                type="password"
                 label="密码"
                 required
               ></v-text-field>

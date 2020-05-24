@@ -20,7 +20,7 @@
 
                 <v-list>
                     <v-list-item>
-                        <v-list-item-title>图书详情</v-list-item-title>
+                        <v-list-item-title @click="$router.push('/book-details/'+bookId)">图书详情</v-list-item-title>
                     </v-list-item>
                     <v-list-item>
                         <v-list-item-title>取消</v-list-item-title>
