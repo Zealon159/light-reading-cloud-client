@@ -31,8 +31,8 @@
                 </template>
 
                 <v-list>
-                    <v-list-item>
-                        <v-list-item-title>分享</v-list-item-title>
+                    <v-list-item @click="$router.push('/index')">
+                        <v-list-item-title>主页</v-list-item-title>
                     </v-list-item>
                     <v-list-item @click="gotoBookshelf()">
                         <v-list-item-title>进入书架</v-list-item-title>
@@ -137,7 +137,7 @@
                     <span>开始阅读</span>
                     <v-icon>mdi-read</v-icon>
                 </v-btn>
-                <v-btn @click="addBookshelf()" :disabled="bookshelfStatus">
+                <v-btn @click="addBookshelf()">
                     <span>{{bookshelfText}}</span>
                     <v-icon :color="bookshelfColor">mdi-plus</v-icon>
                 </v-btn>
@@ -238,6 +238,7 @@
                         this.snackbar = true;
                         this.bookshelfText = '已在书架';
                         this.bookshelfColor = 'green';
+                        this.snackbarText = '已加入书架 ( *￣▽￣)';
                     }
                 })
             },
@@ -250,12 +251,12 @@
                 let value = 1;
                 let color = 'red'
                 let text = '已喜欢'
-                let msg = '加入了已喜欢'
+                let msg = '加入了已喜欢 (♥◠‿◠)ﾉ '
                 if(this.likeColor=="red"){
                     color = ''
                     value = 0;
                     text = '喜欢'
-                    msg = '取消了已喜欢'
+                    msg = '取消了已喜欢 (ಥ_ಥ) '
                 }
                 let bookId = this.$route.params.bookId;
                 let dataForm = {

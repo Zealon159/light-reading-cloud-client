@@ -28,7 +28,7 @@
          <v-card
             class="mx-auto"
         >
-          <v-img src="http://reading.zealon.cn/about-me.png" height="156px" dark></v-img>
+          <v-img src="http://reading.zealon.cn/about-me.png" dark></v-img>
 
           <v-list two-line>
               <v-list-item >
@@ -87,6 +87,7 @@
     export default {
         data() {
           return {
+            alert:'',
             messages:[
               "为什么我天天上下班从不关电脑？想想上次关机应该是去年，关机的原因也是被迫系统更新升级。",
               "为什么大多数开发都2个显示器，我却习惯用笔记本自带的屏幕？",

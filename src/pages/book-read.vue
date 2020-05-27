@@ -19,6 +19,9 @@
                 </template>
 
                 <v-list>
+                    <v-list-item @click="$router.push('/index')">
+                        <v-list-item-title>主页</v-list-item-title>
+                    </v-list-item>
                     <v-list-item>
                         <v-list-item-title @click="$router.push('/book-details/'+bookId)">图书详情</v-list-item-title>
                     </v-list-item>

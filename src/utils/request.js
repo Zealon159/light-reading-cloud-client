@@ -11,7 +11,7 @@ axios.interceptors.response.use(success => {
     return success.data;
 }, error => {
     if (error.response.status == 504 || error.response.status == 404) {
-        alert('服务器被吃了( ╯□╰ )');
+        alert('服务器迷路了( ╯□╰ )，再试一次吧。');
     } else if (error.response.status == 403) {
         alert('权限不足，请联系管理员');
     } else if (error.response.status == 401) {
@@ -22,6 +22,8 @@ axios.interceptors.response.use(success => {
             db.save("LOGINFLAG","1")
         }
         router.replace('/');
+    } else if (error.response.status == 429) {
+        alert('骚年，你的手速有点快哦！(￣.￣)...')
     } else {
         alert('未知错误!')
     }
