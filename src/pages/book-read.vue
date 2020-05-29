@@ -166,6 +166,15 @@
                     }
                 })
             },
+            // 获取章节目录
+            getCatalog(){
+                this.getRequest('/book/chapter/getChapterList', {bookId:this.bookId}).then(resp => {
+                    if (resp.code == 200) {
+                        this.sheetCatalog = true;
+                        this.chapters = resp.data;
+                    }
+                })
+            },
             // 同步图书阅读进度
             syncBook(bookId, chapterId){
                 // 只同步在书架里的图书
