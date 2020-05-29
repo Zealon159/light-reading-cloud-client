@@ -91,10 +91,6 @@
                     目录
                     <v-icon>mdi-view-headline</v-icon>
                 </v-btn>
-                <v-btn @click="getCatalog()">
-                    夜间
-                    <v-icon>mdi-font</v-icon>
-                </v-btn>
                 <v-btn @click="gotoNext()">
                     下一章
                     <v-icon>mdi-skip-next</v-icon>
@@ -167,15 +163,6 @@
                         this.current = resp.data.current;
                         this.pre = resp.data.pre;
                         this.next = resp.data.next;
-                    }
-                })
-            },
-            // 获取章节目录
-            getCatalog(){
-                this.getRequest('/book/chapter/getChapterList', {bookId:this.bookId}).then(resp => {
-                    if (resp.code == 200) {
-                        this.sheetCatalog = true;
-                        this.chapters = resp.data;
                     }
                 })
             },
