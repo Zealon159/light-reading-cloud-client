@@ -24,7 +24,7 @@
                 </v-col>
                 <v-col cols="9" sm="9" >
                 <v-row><a>{{book.bookName}}</a></v-row>
-                <v-row style="font-size:13px;color:#cccccc; margin-top:6px" >{{book.introduction|subString}}</v-row>
+                <v-row style="font-size:13px;color:#gray; margin-top:6px" >{{book.introduction|subString}}</v-row>
                 <v-row style=" margin-top:6px">
                     <span style="font-size:14px;" >{{book.authorName}} </span>
                     <v-spacer></v-spacer>

@@ -5,6 +5,7 @@ Vue.use(Router)
 
 // 页面组件
 const home = r => require.ensure([], () => r(require('@/pages/home')), 'home');
+const search = r => require.ensure([], () => r(require('@/pages/search')), 'search');
 const hello = r => require.ensure([], () => r(require('@/components/HelloWorld')), 'hello');
 const register = r => require.ensure([], () => r(require('@/pages/register')), 'register');
 const login = r => require.ensure([], () => r(require('@/pages/login')), 'login');
@@ -47,6 +48,11 @@ const routes = [
 				component: myBookshelf
 			}
 		]
+	},
+	{
+		path: '/search',
+		name: '搜索',
+		component: search
 	},
 	{
 		path: '/register',

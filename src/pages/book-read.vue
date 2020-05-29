@@ -33,11 +33,13 @@
         </v-app-bar>
 
         <!-- content -->
-        <v-content  style="width:900px; text-align:left" >
+        <v-content style="width:900px; text-align:left" >
             <v-container fluid >
                 <v-row>
                     <v-col cols="12" sm="12">
-                        <div class="font-weight-light" style="font-size:18px;line-height:34px;white-space: pre-line;">{{current.content}}</div>
+                        <div class="font-weight-light" style="font-size:18px;line-height:34px;white-space: pre-line;">
+                            {{current.content}}
+                        </div>
                     </v-col>
                 </v-row>
             </v-container>
@@ -88,6 +90,10 @@
                 <v-btn @click="getCatalog()">
                     目录
                     <v-icon>mdi-view-headline</v-icon>
+                </v-btn>
+                <v-btn @click="getCatalog()">
+                    夜间
+                    <v-icon>mdi-font</v-icon>
                 </v-btn>
                 <v-btn @click="gotoNext()">
                     下一章

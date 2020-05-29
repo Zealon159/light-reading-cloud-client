@@ -18,7 +18,7 @@
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-toolbar-title>轻松阅读</v-toolbar-title>
       <v-spacer />
-      <v-btn icon @click="snackbar=true">
+      <v-btn icon @click="$router.push('/search')">
         <v-icon>mdi-magnify</v-icon>
       </v-btn>
 
@@ -110,7 +110,7 @@
         v-model="snackbar"
         :timeout="2000"
       >
-        搜索功能后续实现哦，(ง •̀_•́)ง
+        功能后续实现哦，(ง •̀_•́)ง
         <v-btn
             color="blue"
             text

@@ -32,7 +32,7 @@
                         {{booklist.books[0].authorName}}
                     </v-btn>
                 </v-row>
-                <v-row style="font-size:13px;color:#cccccc; margin-top:6px" >{{booklist.books[0].introduction|subString}}</v-row>
+                <v-row style="font-size:13px;color:#gray; margin-top:6px" >{{booklist.books[0].introduction|subString}}</v-row>
             </v-col>
         </v-row>
     </div>

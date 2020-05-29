@@ -48,7 +48,7 @@
             <v-divider style="margin-top:12px"></v-divider>
           </div>
           <div style="padding:10px; margin-top:10px">
-            <v-btn block color="secondary" :disabled="!showMore" @click="loadBooks()">{{moreText}}</v-btn>
+            <v-btn block color="blue-grey lighten-5" :disabled="!showMore" @click="loadBooks()">{{moreText}}</v-btn>
           </div>
         </v-container>
         
